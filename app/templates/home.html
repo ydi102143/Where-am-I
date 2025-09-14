@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>今日の3つ — Personal PM Coach</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/css/home.css?v=0" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>今日の3つ</h1>
+    <div class="right">
+      <label>持ち時間
+        <input id="minutes" type="number" min="15" max="600" value="90" />
+        <span>分</span>
+      </label>
+      <button id="reload">更新</button>
+      <button id="gen-tasks">タスク自動生成</button>
+      <button id="get-from-cal">カレンダーから取得</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="cards" class="cards"></section>
+    <p id="empty" class="muted" style="display:none;">おすすめタスクがありません。Goal/Taskを追加してください。</p>
+
+    <section class="reflect">
+      <h2>1分振り返り</h2>
+      <form id="reflect-form">
+        <div class="row">
+          <label>日付 <input type="date" id="r-date" /></label>
+          <label>気分 <input type="number" id="r-mood" min="1" max="5" value="3" /></label>
+        </div>
+        <textarea id="r-text" rows="4" placeholder="やったこと・詰まったこと・気づき（任意）"></textarea>
+        <div class="row">
+          <button type="submit" id="r-submit">保存</button>
+          <span id="r-status" class="muted"></span>
+        </div>
+      </form>
+
+      <div id="r-summary" class="summary">
+        <div class="line">直近 <strong>7日</strong>：<span id="r-count">0</span>件、平均ムード <span id="r-avg">—</span></div>
+        <div class="line small muted">最新（<span id="r-latest-date">—</span>）</div>
+        <p id="r-latest-text" class="latest muted">—</p>
+      </div>
+    </section>
+
+    <section class="review">
+      <div class="review-head">
+        <h2>直近7日の要約 & 次の改善</h2>
+        <button id="rv-reload" class="btn ghost">再計算</button>
+      </div>
+      <div id="rv-body">
+        <p class="muted">直近の振り返りから要約を生成します。</p>
+        <div class="rv-summary" id="rv-summary">—</div>
+        <ul class="rv-improvements" id="rv-improve"></ul>
+      </div>
+    </section>
+
+    <section class="weekly">
+      <div class="weekly-head">
+        <h2>今週の所感（自動）</h2>
+        <div class="row">
+          <button id="wk-reload" class="btn ghost">再読込</button>
+          <button id="wk-run" class="btn">手動生成</button>
+        </div>
+      </div>
+      <div id="wk-body">
+        <p class="muted">日曜21時に自動更新されます。</p>
+        <div class="wk-summary" id="wk-summary">—</div>
+        <ul class="wk-improvements" id="wk-improve"></ul>
+        <div class="line small muted" id="wk-meta"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ICS設定モーダル -->
+  <div id="ics-modal" class="modal" style="display:none;">
+    <div class="modal-body">
+      <h3>Googleカレンダー（ICS）設定</h3>
+      <ol>
+        <li>Googleカレンダー → 歯車 → <b>設定</b> → 対象カレンダーを選択</li>
+        <li>「カレンダーの統合」→ <b>秘密のアドレス（iCal形式）</b> をコピー</li>
+        <li>以下に貼り付けて保存（読み取り専用）</li>
+      </ol>
+      <input id="ics-url" type="url" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics" />
+      <div class="row">
+        <button id="ics-save" class="btn">保存</button>
+        <button id="ics-close" class="btn ghost">閉じる</button>
+      </div>
+      <p class="muted small">※ このURLは第三者に共有しないでください。</p>
+    </div>
+  </div>
+
+  <script src="/static/js/home.js?v=0"></script>
+</body>
+</html>

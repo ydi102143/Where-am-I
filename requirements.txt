@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+SQLAlchemy
+alembic
+apscheduler
+requests
+ics
+python-dateutil
+pydantic
+pydantic-settings
+python-dotenv
